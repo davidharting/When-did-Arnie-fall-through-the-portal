@@ -17,6 +17,16 @@ function howLong() {
   return [years, months, days]
 }
 
+/**
+ * Naive pluralize is fine, because it's only years, months, or days
+ */
+function pluralize(quantity, noun) {
+  if (quantity === 1) {
+    return noun
+  }
+  return `${noun}s`
+}
+
 function IndexPage() {
   const [years, months, days] = howLong()
   return (
@@ -24,13 +34,13 @@ function IndexPage() {
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <ul>
         <li>
-          <h1>{`${years} years`}</h1>
+          <h1>{`${years} ${pluralize(years, "year")}`}</h1>
         </li>
         <li>
-          <h1>{`${months} months`}</h1>
+          <h1>{`${months} ${pluralize(months, "month")}`}</h1>
         </li>
         <li>
-          <h1>{`${days} days`}</h1>
+          <h1>{`${days} ${pluralize(days, "day")}`}</h1>
         </li>
       </ul>
     </Layout>
