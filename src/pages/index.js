@@ -1,51 +1,8 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
 import "./index.css"
-
-// A "couple of days ago" from the first episode, which was Dec 9 2017
-const IT_HAPPENED = dayjs("2015-03-07")
-
-function Year({ number }) {
-  return (
-    <li>
-      <h1>{`${number} ${pluralize(number, "year")}`}</h1>
-    </li>
-  )
-}
-
-function HowLong() {
-  const today = dayjs()
-  const years = today.diff(IT_HAPPENED, "years")
-  const months = today.diff(IT_HAPPENED, "months") - years * 12
-  const monthsDecimal = today.diff(IT_HAPPENED, "months", true) - years * 12
-  const leftover = monthsDecimal - months
-
-  if (leftover <= 0.9) {
-    return (
-      <React.Fragment>
-        <Year number={years} />
-        <li>
-          <h1>{`${months} ${pluralize(months, "month")}`}</h1>
-        </li>
-        <li>
-          <h1>and some change ago</h1>
-        </li>
-      </React.Fragment>
-    )
-  }
-
-  return (
-    <React.Fragment>
-      <Year number={years} />
-      <li>
-        <h1>{`and ${months + 1} ${pluralize(months + 1, "month")} ago`}</h1>
-      </li>
-    </React.Fragment>
-  )
-}
 
 /**
  * Naive pluralize is fine, because it's only years, months, or days
@@ -55,6 +12,42 @@ function pluralize(quantity, noun) {
     return noun
   }
   return `${noun}s`
+}
+
+function HowLong() {
+  const [years, setYears] = useState(0)
+  const [months, setMonths] = useState(0)
+  const [days, setDays] = useState(0)
+
+  useEffect(() => {
+    let day = dayjs("2015-03-07")
+    const today = dayjs()
+
+    const numberOfYears = today.diff(day, "years")
+    setYears(numberOfYears)
+    day = day.add(numberOfYears, "years")
+
+    const numberOfMonths = today.diff(day, "months")
+    setMonths(numberOfMonths)
+    day = day.add(numberOfMonths, "months")
+
+    const numberOfDays = today.diff(day, "days")
+    setDays(numberOfDays)
+  }, [])
+
+  return (
+    <ul>
+      <li>
+        <h1>{`${years} ${pluralize(years, "year")}`}</h1>
+      </li>
+      <li>
+        <h1>{`${months} ${pluralize(months, "month")}`}</h1>
+      </li>
+      <li>
+        <h1>{`${days} ${pluralize(days, "day")}`}</h1>
+      </li>
+    </ul>
+  )
 }
 
 function IndexPage() {
