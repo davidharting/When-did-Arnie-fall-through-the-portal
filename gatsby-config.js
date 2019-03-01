@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `When did Arnie fall?`,
+    description: `A site that tells Arnie how long ago he fell through the portal behind Burger King.`,
+    author: `@davehrtng`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -11,8 +11,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `when-did-arnie-fall-through-the-portal-behind-burger-king`,
+        short_name: `when-did-arnie-fall`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
