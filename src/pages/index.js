@@ -8,13 +8,43 @@ import "./index.css"
 // A "couple of days ago" from the first episode, which was Dec 9 2017
 const IT_HAPPENED = dayjs("2015-03-07")
 
-function howLong() {
+function Year({ number }) {
+  return (
+    <li>
+      <h1>{`${number} ${pluralize(number, "year")}`}</h1>
+    </li>
+  )
+}
+
+function HowLong() {
   const today = dayjs()
   const years = today.diff(IT_HAPPENED, "years")
   const months = today.diff(IT_HAPPENED, "months") - years * 12
-  const days = today.diff(IT_HAPPENED, "days") - (years * 365 + months * 30)
+  const monthsDecimal = today.diff(IT_HAPPENED, "months", true) - years * 12
+  const leftover = monthsDecimal - months
 
-  return [years, months, days]
+  if (leftover <= 0.9) {
+    return (
+      <React.Fragment>
+        <Year number={years} />
+        <li>
+          <h1>{`${months} ${pluralize(months, "month")}`}</h1>
+        </li>
+        <li>
+          <h1>and some change ago</h1>
+        </li>
+      </React.Fragment>
+    )
+  }
+
+  return (
+    <React.Fragment>
+      <Year number={years} />
+      <li>
+        <h1>{`and ${months + 1} ${pluralize(months + 1, "month")} ago`}</h1>
+      </li>
+    </React.Fragment>
+  )
 }
 
 /**
@@ -28,20 +58,11 @@ function pluralize(quantity, noun) {
 }
 
 function IndexPage() {
-  const [years, months, days] = howLong()
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <ul>
-        <li>
-          <h1>{`${years} ${pluralize(years, "year")}`}</h1>
-        </li>
-        <li>
-          <h1>{`${months} ${pluralize(months, "month")}`}</h1>
-        </li>
-        <li>
-          <h1>{`${days} ${pluralize(days, "day")}`}</h1>
-        </li>
+        <HowLong />
       </ul>
     </Layout>
   )
