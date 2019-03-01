@@ -24,13 +24,13 @@ function IndexPage() {
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <ul>
         <li>
-          <p>{`${years} years`}</p>
+          <h1>{`${years} years`}</h1>
         </li>
         <li>
-          <p>{`${months} months`}</p>
+          <h1>{`${months} months`}</h1>
         </li>
         <li>
-          <p>{`${days} days`}</p>
+          <h1>{`${days} days`}</h1>
         </li>
       </ul>
     </Layout>
