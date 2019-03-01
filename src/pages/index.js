@@ -6,7 +6,7 @@ import SEO from "../components/seo"
 import "./index.css"
 
 // A "couple of days ago" from the first episode, which was Dec 9 2017
-const IT_HAPPENED = dayjs("2017-12-7")
+const IT_HAPPENED = dayjs("2015-03-07")
 
 function howLong() {
   const today = dayjs()
